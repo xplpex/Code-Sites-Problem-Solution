@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int fin=nums.size(),ini=0;
+        while(ini<fin){
+            int meio=ini+(fin - ini)/2;
+            if(target-1<nums[meio]){
+                fin=meio;
+            }else{
+                ini=meio+1;
+            }
+            cout << ini << endl;
+        }
+        return ini;
+    }
+};
