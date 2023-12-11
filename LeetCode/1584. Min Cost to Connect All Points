@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int f[1001],r[1001];
+    int findp(int i) {
+        if(f[i]==i)return i;
+        return f[i]=findp(f[i]);
+    }
+    void uniao(int a,int b) {
+        a=findp(a), b=findp(b);
+        if(a==b) return;
+        if(r[a]>r[b]){
+            r[a]+=r[b];
+            f[b]=a;
+        }else{
+            r[b]+=r[a];
+            f[a]=b;
+        }
+    }
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        vector<pair<int,pair<int,int>>> vec(100001);
+        int n=points.size();
+        for(int i=0;i<n;i++){
+            f[i]=i;
+            r[i]=1;
+        }
+        for(int i=0;i<n-1;i++){
+            for(int j=i+1;j<n;j++){
+                int calc=abs(points[j][0]-points[i][0])+abs(points[j][1]-points[i][1]);
+                vec.push_back({calc,{i,j}});
+            }
+        }
+        sort(vec.begin(),vec.end());
+        int n1=vec.size();
+        int tot=0;
+        for(int i=0;i<n1;i++){
+            int p=vec[i].first;
+            int x=vec[i].second.first;
+            int y=vec[i].second.second;
+            if(findp(x)!=findp(y)){
+                uniao(x,y);
+                tot+=p;
+            }
+        }
+        return tot;
+    }
+};
