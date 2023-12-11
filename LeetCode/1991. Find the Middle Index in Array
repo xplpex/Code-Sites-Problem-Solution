@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int findMiddleIndex(vector<int>& nums) {
+        int tama=nums.size();
+        int pref[tama],sufx[tama];
+        pref[0]=nums[0];
+        sufx[tama-1]=nums[tama-1];
+        for(int i=1;i<tama;i++)
+            pref[i]=nums[i]+pref[i-1];
+        for(int i=tama-2;i>=0;i--)
+            sufx[i]=sufx[i+1]+nums[i];
+        for(int i=0;i<tama;i++)
+            if(pref[i]==sufx[i])
+                return i;
+        return -1;
+    }
+};
