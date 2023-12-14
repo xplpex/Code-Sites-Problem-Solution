@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> dp;
+    bool ok=0;
+    void inic(){
+        if(ok)
+            return;
+        ok=1;
+        dp = vector<int>(31,-1);
+        dp[0]=0;
+    }
+    int fib(int n) {
+        inic();
+        if(dp[n]!=-1)return dp[n];
+        if(n<=2)return 1;
+        return dp[n] = fib(n-1)+fib(n-2);
+    }
+};
